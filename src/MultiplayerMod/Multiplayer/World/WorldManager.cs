@@ -58,7 +58,7 @@ public class WorldManager {
     }
 
     private void SetupStatusOverlay() {
-        MultiplayerStatusOverlay.Show("Waiting for players...");
+        MultiplayerStatusOverlay.Show(Core.Strings.UI.OVERLAY.WAITING_PLAYERS);
         events.Subscribe<PlayerStateChangedEvent>(
             (_, subscription) => {
                 var players = multiplayer.Players;
@@ -68,14 +68,14 @@ public class WorldManager {
                 }
                 var readyPlayersCount = players.Count(it => it.State == PlayerState.Ready);
                 var playerList = string.Join("\n", players.Select(it => $"{it.Profile.PlayerName}: {it.State}"));
-                var statusText = $"Waiting for players ({readyPlayersCount}/{players.Count} ready)...\n{playerList}";
+                var statusText = string.Format(Core.Strings.UI.OVERLAY.PLAYER_STATUS, readyPlayersCount, players.Count, playerList);
                 MultiplayerStatusOverlay.Text = statusText;
             }
         );
     }
 
     public void RequestWorldLoad(string name, byte[] data) {
-        MultiplayerStatusOverlay.Show($"Loading {name}...");
+        MultiplayerStatusOverlay.Show(string.Format(Core.Strings.UI.OVERLAY.LOADING_WORLD, name));
         events.Subscribe<PlayersReadyEvent>(
             (_, subscription) => {
                 MultiplayerStatusOverlay.Close();
