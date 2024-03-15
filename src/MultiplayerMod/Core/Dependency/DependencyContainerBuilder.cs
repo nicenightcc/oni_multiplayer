@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -51,6 +51,10 @@ public class DependencyContainerBuilder {
             .Where(it => it.GetCustomAttribute<DependencyAttribute>() != null)
             .Union(includeTypes);
         foreach (var type in types) {
+            var platform = type.GetCustomAttribute<Platform.RequirePlatformAttribute>();
+            if (platform != null && !platform.CheckPlatform()) {
+                continue;
+            }
             var attribute = type.GetCustomAttribute<DependencyAttribute>();
             var dependencyInfo = new DependencyInfo(attribute?.Name ?? type.FullName!, type, attribute?.Lazy ?? false);
             container.Register(dependencyInfo);
