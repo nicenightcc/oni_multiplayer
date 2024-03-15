@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 namespace MultiplayerMod.Core.Events;
 
@@ -11,6 +11,7 @@ public class EventSubscription : IEventSubscription {
     private readonly EventDispatcher dispatcher;
     private readonly Delegate action;
     private readonly Type type;
+    private EventSubscription? chainNext;
 
     public EventSubscription(EventDispatcher dispatcher, Delegate action, Type type) {
         this.dispatcher = dispatcher;
@@ -18,7 +19,19 @@ public class EventSubscription : IEventSubscription {
         this.type = type;
     }
 
-    public void Cancel() => dispatcher.Unsubscribe(type, action);
+    public EventSubscription Subscribe<T>(Action<T> action) where T : IDispatchableEvent {
+        return Subscribe<T>((@event, _) => action(@event));
+    }
+
+    public EventSubscription Subscribe<T>(Action<T, EventSubscription> action) where T : IDispatchableEvent {
+        chainNext = dispatcher.Subscribe(action);
+        return chainNext;
+    }
+
+    public void Cancel() {
+        dispatcher.Unsubscribe(type, action);
+        chainNext?.Cancel();
+    }
 
 }
 

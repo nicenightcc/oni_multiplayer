@@ -1,5 +1,4 @@
-﻿using System.Runtime.Serialization;
-using MultiplayerMod.Platform.Steam.Network.Messaging.Surrogates;
+using System.Runtime.Serialization;
 
 namespace MultiplayerMod.Network.Messaging.Surrogates;
 

@@ -1,7 +1,8 @@
-﻿using System;
+using System;
 using JetBrains.Annotations;
 using MultiplayerMod.Core.Dependency;
 using MultiplayerMod.Core.Scheduling;
+using MultiplayerMod.Core.Unity;
 using MultiplayerMod.ModRuntime.StaticCompatibility;
 using TMPro;
 using UnityEngine;
@@ -44,6 +45,8 @@ public class MultiplayerStatusOverlay {
 
     private void CreateOverlay() {
         LoadingOverlay.Load(() => { });
+        LoadingOverlay.instance.FindOrAddComponent<OverlayMonoBehaviour>();
+
         textComponent = LoadingOverlay.instance.GetComponentInChildren<LocText>();
         textComponent.alignment = TextAlignmentOptions.Top;
         textComponent.margin = new Vector4(0, -21.0f, 0, 0);
@@ -75,4 +78,10 @@ public class MultiplayerStatusOverlay {
         overlay = null;
     }
 
+    public class OverlayMonoBehaviour : MultiplayerKMonoBehaviour {
+        protected override void OnCleanUp() {
+            base.OnCleanUp();
+            MultiplayerStatusOverlay.Close();
+        }
+    }
 }
