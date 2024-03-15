@@ -6,12 +6,12 @@
         <DebugSymbols>true</DebugSymbols>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
-        <DefineConstants/>
+        <DefineConstants />
         <Optimize>false</Optimize>
         <DebugType>portable</DebugType>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)' == 'Publish' ">
-        <DefineConstants/>
+        <DefineConstants />
         <Optimize>true</Optimize>
         <DebugType>none</DebugType>
     </PropertyGroup>
@@ -59,6 +59,6 @@
         <Reference Include="ImGui.NET" HintPath="$(ManagedPath)\ImGui.NET.dll" Private="false" />
     </ItemGroup>
     <ItemGroup>
-        <ProjectReference Include="..\MultiplayerMod.AttributeProcessor\MultiplayerMod.AttributeProcessor.csproj" Private="false"/>
+        <ProjectReference Include="..\MultiplayerMod.AttributeProcessor\MultiplayerMod.AttributeProcessor.csproj" Private="false" />
     </ItemGroup>
 </Project>

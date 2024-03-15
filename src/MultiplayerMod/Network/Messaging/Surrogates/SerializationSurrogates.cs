@@ -1,12 +1,15 @@
 ﻿using System.Runtime.Serialization;
+using MultiplayerMod.Platform.Steam.Network.Messaging.Surrogates;
 
-namespace MultiplayerMod.Platform.Steam.Network.Messaging.Surrogates;
+namespace MultiplayerMod.Network.Messaging.Surrogates;
 
-public static class SerializationSurrogates {
+public static class SerializationSurrogates
+{
 
     public static readonly SurrogateSelector Selector = new();
 
-    static SerializationSurrogates() {
+    static SerializationSurrogates()
+    {
         Selector.Add(new Vector2SerializationSurrogate());
         Selector.Add(new Vector2fSerializationSurrogate());
         Selector.Add(new Vector3SerializationSurrogate());
@@ -23,7 +26,8 @@ public static class SerializationSurrogates {
     }
 
     private static void Add<T>(this SurrogateSelector selector, T surrogate)
-        where T : ISerializationSurrogate, ISurrogateType {
+        where T : ISerializationSurrogate, ISurrogateType
+    {
         selector.AddSurrogate(surrogate.Type, new StreamingContext(StreamingContextStates.All), surrogate);
     }
 

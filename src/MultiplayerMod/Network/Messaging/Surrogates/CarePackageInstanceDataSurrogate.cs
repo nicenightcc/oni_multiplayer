@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-namespace MultiplayerMod.Platform.Steam.Network.Messaging.Surrogates;
+namespace MultiplayerMod.Network.Messaging.Surrogates;
 
-public class CarePackageInstanceDataSurrogate : ISerializationSurrogate, ISurrogateType {
+public class CarePackageInstanceDataSurrogate : ISerializationSurrogate, ISurrogateType
+{
 
     public Type Type => typeof(CarePackageContainer.CarePackageInstanceData);
 
-    public void GetObjectData(object obj, SerializationInfo info, StreamingContext context) {
+    public void GetObjectData(object obj, SerializationInfo info, StreamingContext context)
+    {
         var packageInstanceData = (CarePackageContainer.CarePackageInstanceData) obj;
         info.AddValue("facadeID", packageInstanceData.facadeID);
         info.AddValue("info.id", packageInstanceData.info.id);
@@ -20,7 +22,8 @@ public class CarePackageInstanceDataSurrogate : ISerializationSurrogate, ISurrog
         SerializationInfo info,
         StreamingContext context,
         ISurrogateSelector selector
-    ) {
+    )
+    {
         var packageInstanceData = (CarePackageContainer.CarePackageInstanceData) obj;
         packageInstanceData.info = new CarePackageInfo(
             info.GetString("info.id"),

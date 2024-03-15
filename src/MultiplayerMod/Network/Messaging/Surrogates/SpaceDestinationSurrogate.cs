@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-namespace MultiplayerMod.Platform.Steam.Network.Messaging.Surrogates;
+namespace MultiplayerMod.Network.Messaging.Surrogates;
 
-public class SpaceDestinationSurrogate : ISerializationSurrogate, ISurrogateType {
+public class SpaceDestinationSurrogate : ISerializationSurrogate, ISurrogateType
+{
 
     public Type Type => typeof(SpaceDestination);
 
-    public void GetObjectData(object obj, SerializationInfo info, StreamingContext context) {
+    public void GetObjectData(object obj, SerializationInfo info, StreamingContext context)
+    {
         var destination = (SpaceDestination) obj;
         info.AddValue("id", destination.id);
     }
@@ -17,7 +19,8 @@ public class SpaceDestinationSurrogate : ISerializationSurrogate, ISurrogateType
         SerializationInfo info,
         StreamingContext context,
         ISurrogateSelector selector
-    ) {
+    )
+    {
         var id = info.GetString("id");
         return SpacecraftManager.instance.GetDestination(int.Parse(id));
     }

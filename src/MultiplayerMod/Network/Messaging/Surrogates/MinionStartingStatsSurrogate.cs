@@ -3,13 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
 
-namespace MultiplayerMod.Platform.Steam.Network.Messaging.Surrogates;
+namespace MultiplayerMod.Network.Messaging.Surrogates;
 
-public class MinionStartingStatsSurrogate : ISerializationSurrogate, ISurrogateType {
+public class MinionStartingStatsSurrogate : ISerializationSurrogate, ISurrogateType
+{
 
     public Type Type => typeof(MinionStartingStats);
 
-    public void GetObjectData(object obj, SerializationInfo info, StreamingContext context) {
+    public void GetObjectData(object obj, SerializationInfo info, StreamingContext context)
+    {
         var stats = (MinionStartingStats) obj;
         info.AddValue("Name", stats.Name);
         info.AddValue("NameStringKey", stats.NameStringKey);
@@ -32,7 +34,8 @@ public class MinionStartingStatsSurrogate : ISerializationSurrogate, ISurrogateT
         SerializationInfo info,
         StreamingContext context,
         ISurrogateSelector selector
-    ) {
+    )
+    {
         var stats = (MinionStartingStats) obj;
         stats.Name = info.GetString("Name");
         stats.NameStringKey = info.GetString("NameStringKey");
@@ -63,9 +66,11 @@ public class MinionStartingStatsSurrogate : ISerializationSurrogate, ISurrogateT
     private static Dictionary<TKey, TValue> ToDictionary<TKey, TValue>(
         IReadOnlyList<TKey> keys,
         IReadOnlyList<TValue> values
-    ) {
+    )
+    {
         var result = new Dictionary<TKey, TValue>();
-        for (var i = 0; i < keys.Count; i++) {
+        for (var i = 0; i < keys.Count; i++)
+        {
             result[keys[i]] = values[i];
         }
         return result;

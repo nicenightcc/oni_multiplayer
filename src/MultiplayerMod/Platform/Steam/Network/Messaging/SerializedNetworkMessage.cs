@@ -1,8 +1,8 @@
-﻿using System;
+using System;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Runtime.Serialization.Formatters.Binary;
-using MultiplayerMod.Platform.Steam.Network.Messaging.Surrogates;
+using MultiplayerMod.Network.Messaging.Surrogates;
 
 namespace MultiplayerMod.Platform.Steam.Network.Messaging;
 
