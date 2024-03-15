@@ -1,4 +1,4 @@
-﻿using JetBrains.Annotations;
+using JetBrains.Annotations;
 using MultiplayerMod.Core.Dependency;
 using MultiplayerMod.Core.Events;
 using MultiplayerMod.Multiplayer.CoreOperations.Events;
@@ -35,7 +35,7 @@ public class MultiplayerServerController {
         if (@event.Multiplayer.Mode != MultiplayerMode.Host)
             return;
 
-        MultiplayerStatusOverlay.Show("Starting host...");
+        MultiplayerStatusOverlay.Show(Core.Strings.UI.OVERLAY.STARTING_HOST);
         events.Subscribe<PlayersReadyEvent>(
             (_, subscription) => {
                 MultiplayerStatusOverlay.Close();

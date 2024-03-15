@@ -17,10 +17,10 @@ public class Notifications {
             ScreenPrefabs.Instance.InfoDialogScreen.gameObject,
             GameScreenManager.Instance.ssOverlayCanvas.gameObject
         );
-        screen.SetHeader("Multiplayer");
-        screen.AddPlainText("Connection has been lost. Further play can not be synced");
+        screen.SetHeader(Core.Strings.UI.MULTIPLAYER);
+        screen.AddPlainText(Core.Strings.NETWORK.ERROR.CONNECTION_LOST);
         screen.AddOption(
-            "OK",
+           STRINGS.UI.CONFIRMDIALOG.OK,
             _ => PauseScreen.Instance.OnQuitConfirm()
         );
     }

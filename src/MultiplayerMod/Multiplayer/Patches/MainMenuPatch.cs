@@ -1,4 +1,4 @@
-﻿using HarmonyLib;
+using HarmonyLib;
 using JetBrains.Annotations;
 using MultiplayerMod.Core.Events;
 using MultiplayerMod.Game;
@@ -17,17 +17,17 @@ internal static class MainMenuPatch {
     private static void OnPrefabInit(MainMenu __instance) {
         var operations = Dependencies.Get<IMultiplayerOperations>();
         __instance.AddButton(
-            "NEW MULTIPLAYER",
+            Core.Strings.UI.MAINMENU.NEW,
             highlight: true,
             () => UseMultiplayerMode(MultiplayerMode.Host, __instance.NewGame)
         );
         __instance.AddButton(
-            "LOAD MULTIPLAYER",
+            Core.Strings.UI.MAINMENU.LOAD,
             highlight: false,
             () => UseMultiplayerMode(MultiplayerMode.Host, __instance.LoadGame)
         );
         __instance.AddButton(
-            "JOIN MULTIPLAYER",
+            Core.Strings.UI.MAINMENU.JOIN,
             highlight: false,
             () => UseMultiplayerMode(MultiplayerMode.Client, operations.Join)
         );

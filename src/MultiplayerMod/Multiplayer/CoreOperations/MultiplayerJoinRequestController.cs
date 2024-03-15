@@ -1,4 +1,4 @@
-﻿using JetBrains.Annotations;
+using JetBrains.Annotations;
 using MultiplayerMod.Core.Dependency;
 using MultiplayerMod.Core.Events;
 using MultiplayerMod.Multiplayer.CoreOperations.Events;
@@ -23,7 +23,7 @@ public class MultiplayerJoinRequestController {
 
     private void OnMultiplayerJoinRequested(MultiplayerJoinRequestedEvent @event) {
         events.Dispatch(new MultiplayerModeSelectedEvent(MultiplayerMode.Client));
-        MultiplayerStatusOverlay.Show($"Connecting to {@event.HostName}...");
+        MultiplayerStatusOverlay.Show(string.Format(Core.Strings.UI.OVERLAY.CONNECTING_TO, @event.HostName));
         client.Connect(@event.Endpoint);
     }
 

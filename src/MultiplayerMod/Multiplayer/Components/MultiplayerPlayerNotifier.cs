@@ -13,14 +13,14 @@ public class MultiplayerPlayerNotifier : MultiplayerMonoBehaviour {
     [InjectDependency]
     private readonly EventDispatcher dispatcher = null!;
 
-    private const float notificationTimeout = 10f;
+    private const float notificationTimeout = 120f;
     private readonly LinkedList<Notification> notifications = new();
     private EventSubscription subscription = null!;
     private bool removalPending;
 
     protected override void Awake() {
         base.Awake();
-        subscription = dispatcher.Subscribe<PlayerLeftEvent>(OnPlayerLeft);
+        subscription = dispatcher.Subscribe<PlayerJoinedEvent>(OnPlayerJoin).Subscribe<PlayerLeftEvent>(OnPlayerLeft);
         NotificationManager.Instance.notificationRemoved += OnNotificationRemoved;
     }
 
@@ -30,10 +30,17 @@ public class MultiplayerPlayerNotifier : MultiplayerMonoBehaviour {
         subscription.Cancel();
     }
 
+    private void OnPlayerJoin(PlayerJoinedEvent @event) {
+        var playerName = @event.Player.Profile.PlayerName;
+        var message = string.Format(Core.Strings.NETWORK.PLAYER.JOINED_NOTIFY, playerName);
+        var description = string.Format(Core.Strings.NETWORK.PLAYER.JOINED_NOTIFY, playerName);
+        AddNotification(message, description, NotificationType.Good);
+    }
+
     private void OnPlayerLeft(PlayerLeftEvent @event) {
         var playerName = @event.Player.Profile.PlayerName;
-        var message = $"{playerName} left";
-        var description = $"{playerName} {(@event.Gracefully ? "left" : "disconnected")}";
+        var message = string.Format(Core.Strings.NETWORK.PLAYER.LEFT_NOTIFY, playerName);
+        var description = string.Format(@event.Gracefully ? Core.Strings.NETWORK.PLAYER.LEFT_NOTIFY : Core.Strings.NETWORK.PLAYER.DISCONN_NOTIFY, playerName);
         AddNotification(message, description, NotificationType.BadMinor);
     }
 
