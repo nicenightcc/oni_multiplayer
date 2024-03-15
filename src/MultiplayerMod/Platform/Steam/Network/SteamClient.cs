@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Runtime.InteropServices;
 using JetBrains.Annotations;
 using MultiplayerMod.Core.Dependency;
@@ -17,6 +17,7 @@ using static Steamworks.ESteamNetConnectionEnd;
 namespace MultiplayerMod.Platform.Steam.Network;
 
 [Dependency, UsedImplicitly]
+[RequirePlatform(PlatformKind.Steam)]
 public class SteamClient : IMultiplayerClient {
 
     public IMultiplayerClientId Id => playerContainer.Value;

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -26,6 +26,7 @@ using static Steamworks.ESteamNetworkingConnectionState;
 namespace MultiplayerMod.Platform.Steam.Network;
 
 [Dependency, UsedImplicitly]
+[RequirePlatform(PlatformKind.Steam)]
 public class SteamServer : IMultiplayerServer {
 
     public MultiplayerServerState State { private set; get; } = MultiplayerServerState.Stopped;
